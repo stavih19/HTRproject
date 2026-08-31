@@ -13,7 +13,6 @@ from src.stages.row_refinement import refine_rows
 from src.stages.row_crop import crop_rows
 from src.stages.candidate_validation import validate_candidates
 from src.stages.curved_segmentation import trace_curved_segments
-from src.stages.row_annotations import apply_row_exclusions
 from src.report import write_image_report
 from src.visualization import (
     save_original,
@@ -107,17 +106,6 @@ def run_pipeline(
         config=config.row_detection,
     )
 
-    # Optional page-level review annotations remove confirmed verso/bleed-
-    # through candidates. Y ranges are stable even when row indices shift.
-    annotation_path = image_path.parent.parent / "annotations" / f"{image_path.stem}.json"
-    if not annotation_path.exists():
-        annotation_path = Path("data/annotations") / f"{image_path.stem}.json"
-    rows, excluded_rows = apply_row_exclusions(rows, annotation_path)
-    if excluded_rows:
-        print(
-            f"{image_path.name}: excluded {len(excluded_rows)} "
-            "reviewed bleed-through row(s)"
-        )
     save_final_rows(
         original,
         rows,

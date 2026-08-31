@@ -29,7 +29,7 @@ folder, so changes to the algorithm can be inspected rather than guessed.
 historical_htr/
 ├── data/
 │   ├── raw/
-│   └── annotations/   # optional reviewed Y-range exclusions per page
+│   └── annotations/
 ├── outputs/
 ├── src/
 │   ├── config.py
