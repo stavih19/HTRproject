@@ -114,6 +114,8 @@ def trace_curved_segments(
         y1, y2 = _row_search_bounds(rows, row_index, image_height)
         band = binary[y1:y2 + 1, :]
         cleaned = _text_like_mask(band)
+        cleaned[:, : row.bbox.x1] = 0
+        cleaned[:, row.bbox.x2 :] = 0
         if ink_confidence is None:
             confidence_band = cleaned.astype(np.float32)
         else:

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List, Optional, Tuple
 
 
 @dataclass
@@ -75,12 +76,29 @@ class RowDetectionConfig:
 
 
 @dataclass
+class ColumnConfig:
+    enabled: bool = False
+    detection_mode: str = "auto"
+    expected_columns: int = 2
+    reading_order: str = "rtl"
+    min_gutter_width_ratio: float = 0.025
+    column_padding_ratio: float = 0.01
+    min_segment_ink: int = 20
+    min_segment_width_ratio: float = 0.03
+    fixed_boundaries: Optional[List[Tuple[float, float]]] = None
+
+
+@dataclass
 class PipelineConfig:
     binarization: BinarizationConfig = None
     row_detection: RowDetectionConfig = None
+    columns: ColumnConfig = None
+    analysis_target_height: int = 2048
 
     def __post_init__(self):
         if self.binarization is None:
             self.binarization = BinarizationConfig()
         if self.row_detection is None:
             self.row_detection = RowDetectionConfig()
+        if self.columns is None:
+            self.columns = ColumnConfig()

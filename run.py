@@ -67,9 +67,24 @@ def main():
         action="store_true",
         help="Do not open the final row-marked image after processing",
     )
+    column_group = parser.add_mutually_exclusive_group()
+    column_group.add_argument(
+        "--columns",
+        action="store_true",
+        help="Split detected rows into semantic columns",
+    )
+    column_group.add_argument(
+        "--no-columns",
+        action="store_true",
+        help="Keep full-width rows (the default)",
+    )
 
     args = parser.parse_args()
     config = PipelineConfig()
+    if args.columns:
+        config.columns.enabled = True
+    elif args.no_columns:
+        config.columns.enabled = False
 
     images = list(iter_images(args.input))
     if not images:

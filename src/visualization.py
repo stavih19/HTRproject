@@ -8,6 +8,7 @@ from src.image_utils import bgr_to_rgb
 from src.models import Row
 from src.stages.row_detection import ProjectionAnalysis
 from src.stages.candidate_validation import CandidateDecision
+from src.stages.column_segmentation import ColumnAnalysis
 
 
 def _save(fig, path: Path):
@@ -181,6 +182,35 @@ def save_candidate_validation(
     _save(fig, path)
 
 
+def save_columns(
+    original: np.ndarray,
+    analysis: ColumnAnalysis,
+    path: Path,
+):
+    h, _ = original.shape[:2]
+    fig, ax = plt.subplots(figsize=(12, 10))
+    ax.imshow(bgr_to_rgb(original))
+
+    for gutter_x1, gutter_x2 in analysis.gutters:
+        ax.axvspan(gutter_x1, gutter_x2, color="red", alpha=0.25)
+    for index, (x1, x2) in enumerate(analysis.bounds):
+        xs = [x1, x2 - 1, x2 - 1, x1, x1]
+        ys = [0, 0, h - 1, h - 1, 0]
+        ax.plot(xs, ys, linewidth=2)
+        ax.text(
+            x1 + 5,
+            25,
+            f"Column {index}",
+            fontsize=10,
+            bbox={"facecolor": "white", "alpha": 0.75, "edgecolor": "none"},
+        )
+
+    suffix = " — fallback to full width" if analysis.used_fallback else ""
+    ax.set_title(f"Stage 4.7 — Semantic columns ({len(analysis.bounds)}){suffix}")
+    ax.axis("off")
+    _save(fig, path)
+
+
 def save_final_rows(
     original: np.ndarray,
     rows: Sequence[Row],
@@ -197,7 +227,11 @@ def save_final_rows(
             b.x2 - 1,
             b.y1,
             b.y2 - 1,
-            f"R{row.index:02d}",
+            (
+                f"C{row.column_index}-R{row.column_row_index:02d}"
+                if row.column_index is not None
+                else f"R{row.index:02d}"
+            ),
         )
 
     ax.set_title(
@@ -244,7 +278,11 @@ def save_curved_segments(
         ax.text(
             baseline[0, 0],
             baseline[0, 1],
-            f"R{row.index:02d}",
+            (
+                f"C{row.column_index}-R{row.column_row_index:02d}"
+                if row.column_index is not None
+                else f"R{row.index:02d}"
+            ),
             fontsize=7,
             color=color,
             bbox={"facecolor": "white", "alpha": 0.65, "edgecolor": "none"},

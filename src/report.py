@@ -8,7 +8,10 @@ STAGES = [
     ("02_binarization.png", "Stage 2 — Binarization diagnostic"),
     ("03_projection.png", "Stage 3 — Horizontal projection"),
     ("04_row_candidates.png", "Stage 4 — Raw row candidates"),
+    ("04_candidate_validation.png", "Stage 4.5 — Candidate validation"),
+    ("04_columns.png", "Stage 4.7 — Semantic columns"),
     ("05_rows_final.png", "Stage 5 — Final row bounding boxes"),
+    ("05_row_segments.png", "Stage 5.5 — Curved row segments"),
     ("06_row_crops.png", "Stage 6 — Row crops from original"),
 ]
 
@@ -68,6 +71,7 @@ code {{
   <h1>Row detection report</h1>
   <p><strong>Image:</strong> {html.escape(image_name)}</p>
   <p><strong>Detected row bands:</strong> {row_count}</p>
+  <p><strong>ALTO XML:</strong> <a href="alto.xml">alto.xml</a></p>
   <p>
     This report is intentionally stage-by-stage. Each algorithmic stage leaves
     a visual diagnostic artifact so later changes can be compared.

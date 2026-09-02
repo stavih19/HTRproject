@@ -28,6 +28,9 @@ class Row:
     score: float = 1.0
     baseline: Optional[List[List[int]]] = None
     polygon: Optional[List[List[int]]] = None
+    column_index: Optional[int] = None
+    column_row_index: Optional[int] = None
+    source_row_index: Optional[int] = None
 
     def to_dict(self):
         result = {
@@ -39,6 +42,10 @@ class Row:
             result["baseline"] = self.baseline
         if self.polygon is not None:
             result["polygon"] = self.polygon
+        if self.column_index is not None:
+            result["column_index"] = self.column_index
+            result["column_row_index"] = self.column_row_index
+            result["source_row_index"] = self.source_row_index
         return result
 
 
