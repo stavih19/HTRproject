@@ -140,13 +140,3 @@ stage should also add its own visual output.
 With `--columns`, `04_columns.png` shows the detected boundaries. Rows are
 numbered independently per column in reading order, the crop files are grouped
 under `rows/column_XX/`, and ALTO receives a separate `TextBlock` per column.
-
-## Next research steps
-
-The intended progression is:
-
-- improve row detection on the current four representative pages
-- only if needed, add table-rule detection as an earlier signal
-- improve automatic column-boundary confidence and support more layouts
-- keep the original image untouched until the HTR input preparation stage
-- integrate Kraken only after segmentation/layout is stable
