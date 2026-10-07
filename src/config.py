@@ -73,6 +73,9 @@ class RowDetectionConfig:
     segment_smoothing_window: int = 5
     segment_max_step_ratio: float = 0.35
     segment_min_half_height: int = 4
+    # Maximum break (in analysis-image pixels) bridged while following a
+    # character stroke beyond the initially detected row box.
+    segment_stroke_gap_threshold: int = 3
 
 
 @dataclass
