@@ -15,6 +15,7 @@ from src.stages.row_crop import crop_rows
 from src.stages.candidate_validation import validate_candidates
 from src.stages.curved_segmentation import trace_curved_segments
 from src.stages.column_segmentation import detect_columns, split_rows_by_columns
+from src.stages.empty_row_filter import filter_empty_rows
 from src.report import write_image_report
 from src.alto import write_alto
 from src.visualization import (
@@ -95,7 +96,7 @@ def run_pipeline(
 ) -> PageResult:
     image_path = Path(image_path)
     out_dir = output_root / image_path.stem
-    rows_dir = out_dir / "rows"
+    rows_dir = out_dir / "06_row_crops"
 
     if out_dir.exists():
         shutil.rmtree(out_dir)
@@ -188,12 +189,18 @@ def run_pipeline(
     # Stage 5.5 — trace a non-horizontal path and polygon inside each row.
     traced_groups = []
     for row_group in row_groups:
+        traced_rows = trace_curved_segments(
+            front_ink,
+            row_group,
+            config.row_detection,
+            ink_confidence=front_confidence,
+        )
         traced_groups.append(
-            trace_curved_segments(
+            filter_empty_rows(
+                binary,
                 front_ink,
-                row_group,
+                traced_rows,
                 config.row_detection,
-                ink_confidence=front_confidence,
             )
         )
     rows = [row for group in traced_groups for row in group]

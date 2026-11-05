@@ -51,6 +51,18 @@ class RowDetectionConfig:
     validation_max_line_aspect_ratio: float = 20.0
     validation_full_height_ratio: float = 0.90
 
+    # Final row-content validation. This runs on the full neighborhood between
+    # adjacent row centers, after long table rules have been removed. Evidence
+    # is evaluated relative to the page so faint manuscripts remain viable.
+    final_neighborhood_ink_ratio: float = 0.45
+    final_min_component_median_area: float = 10.0
+    final_min_component_count: int = 12
+    final_min_nontext_run: int = 3
+    final_min_edge_bridge_run: int = 2
+    final_rule_length_ratio: float = 0.03
+    final_vertical_rule_height_ratio: float = 0.55
+    final_transition_score_ratio: float = 0.40
+
     # Candidate filtering / refinement
     min_row_height: int = 8
     max_row_height: int = 180
@@ -76,6 +88,7 @@ class RowDetectionConfig:
     # Maximum break (in analysis-image pixels) bridged while following a
     # character stroke beyond the initially detected row box.
     segment_stroke_gap_threshold: int = 3
+
 
 
 @dataclass

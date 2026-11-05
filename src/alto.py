@@ -186,7 +186,12 @@ def write_alto(result: PageResult, path: Path) -> None:
                         f"column_{column_index:02d}",
                     )
         else:
-            _append_text_block(print_space, result.rows, image_stem, "full_width")
+            _append_text_block(
+                print_space,
+                result.rows,
+                image_stem,
+                "full_width",
+            )
 
     ET.indent(root, space="  ")
     tree = ET.ElementTree(root)

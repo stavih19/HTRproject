@@ -72,6 +72,7 @@ code {{
   <p><strong>Image:</strong> {html.escape(image_name)}</p>
   <p><strong>Detected row bands:</strong> {row_count}</p>
   <p><strong>ALTO XML:</strong> <a href="alto.xml">alto.xml</a></p>
+  <p><strong>Separate row crops:</strong> <a href="06_row_crops/">06_row_crops/</a></p>
   <p>
     This report is intentionally stage-by-stage. Each algorithmic stage leaves
     a visual diagnostic artifact so later changes can be compared.
