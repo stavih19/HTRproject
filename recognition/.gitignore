@@ -1,0 +1,8 @@
+.venv/
+outputs/
+models/**/*.safetensors
+models/**/*.mlmodel
+models/**/*.ckpt
+models/**/*.part
+__pycache__/
+*.pyc

@@ -1,4 +1,10 @@
 /data
 /env1
+/output/
 /outputs
 **/__pycache__/
+.pytest_cache/
+.venv-braken/
+.venv-kraken/
+*.so
+*.so.*

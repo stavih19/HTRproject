@@ -18,8 +18,10 @@ column splitting is optional and is disabled by default.
 8. Optionally detect semantic columns and split every logical row per column
 9. Draw final row bounding boxes
 10. Trace curved baselines and row polygons independently inside each column
-11. Crop each row from the **original image**
-12. Save `result.json` and `alto.xml`
+11. Remove sustained non-text row sequences using rule-cleaned row
+    neighborhoods and character-component evidence
+12. Crop each row from the **original image**
+13. Save `result.json` and full-resolution `alto.xml`
 
 Every stage automatically saves a visual diagnostic figure into the output
 folder, so changes to the algorithm can be inspected rather than guessed.
@@ -76,6 +78,12 @@ python run.py data/raw/SL1934_00130.jpg --no-show
 python run.py data/raw
 ```
 
+Run the full folder without opening each result image:
+
+```bash
+python run.py data/raw --no-show
+```
+
 ## Optional column splitting
 
 Column splitting is off by default. Enable it from the command line with:
@@ -108,8 +116,8 @@ outputs/<image-stem>/
 ├── 04_columns.png              # only when --columns is enabled
 ├── 05_row_segments.png
 ├── 05_rows_final.png
-├── 06_row_crops.png
-├── rows/
+├── 06_row_crops.png             # combined crop overview
+├── 06_row_crops/               # separate image for every row
 │   ├── row_000.png             # full-width mode
 │   ├── row_001.png
 │   ├── column_00/              # column mode
@@ -121,6 +129,22 @@ outputs/<image-stem>/
 ```
 
 When a folder is processed, `outputs/index.html` is also generated as a single entry point to all visual reports.
+
+### View ALTO points on the image
+
+Render the line polygons in green and the baselines in red (every stored point
+is shown as a dot):
+
+```bash
+python view_alto.py outputs/<image-stem>/alto.xml --open
+```
+
+The source image is normally found from the filename stored in the XML. If it
+cannot be found automatically, provide it explicitly:
+
+```bash
+python view_alto.py path/to/alto.xml --image path/to/image.jpg -o overlay.png
+```
 
 Stage 3 preserves the original full-page projection and adds normalized density
 projections over six overlapping vertical analysis strips. These strips are not

@@ -1,0 +1,63 @@
+{
+  "ppocrv6_medium": {
+    "name": "PP-OCRv6 Medium Multilingual",
+    "model_path": "recognition/models/ppocrv6_medium/medium.safetensors",
+    "download_url": "https://zenodo.org/records/21788410/files/medium.safetensors?download=1",
+    "min_kraken": "7.1",
+    "usable": true,
+    "notes": "Recommended general multilingual Hebrew/Yiddish model; requires Kraken >= 7.1."
+  },
+  "vilne_yiddish": {
+    "name": "Vilne Yiddish Hand 1",
+    "model_path": "recognition/models/vilne_yiddish/vilne_yiddish_8a.mlmodel",
+    "download_url": "https://media.githubusercontent.com/media/SergeyGurbich/kraken-htr-vilne-hand-1/main/models/vilne_yiddish_8a.mlmodel",
+    "usable": true,
+    "notes": "Interwar Ashkenazi cursive model. Weights are CC BY-NC 4.0."
+  },
+  "ppocrv6_small": {
+    "name": "PP-OCRv6 Small Multilingual",
+    "model_path": "recognition/models/ppocrv6_small/small.safetensors",
+    "download_url": "https://zenodo.org/records/21788405/files/small.safetensors?download=1",
+    "min_kraken": "7.1",
+    "usable": true,
+    "notes": "Recommended speed/accuracy compromise; requires Kraken >= 7.1."
+  },
+  "ppocrv6_tiny": {
+    "name": "PP-OCRv6 Tiny Multilingual",
+    "model_path": "recognition/models/ppocrv6_tiny/tiny.safetensors",
+    "download_url": "https://zenodo.org/records/21788403/files/tiny.safetensors?download=1",
+    "min_kraken": "7.1",
+    "usable": true,
+    "notes": "Fastest PP-OCRv6 baseline; requires Kraken >= 7.1."
+  },
+  "party_multilingual": {
+    "name": "Party Multilingual Base",
+    "model_path": "recognition/models/party_multilingual/model.safetensors",
+    "download_url": "https://zenodo.org/records/20642057/files/model.safetensors?download=1",
+    "usable": true,
+    "notes": "Requires the Party Kraken plugin in addition to Kraken; model is about 518 MB."
+  },
+  "biblia": {
+    "name": "BiblIA",
+    "model_path": "recognition/models/biblia/biblia.mlmodel",
+    "download_url": null,
+    "usable": false,
+    "notes": "The cited public Zenodo record is a dataset, not a directly downloadable recognition model. Place an obtained BiblIA weight file here manually."
+  },
+  "samaritan_hebrew": {
+    "name": "PP-OCRv6 Samaritan Hebrew Medium Fine-tuned",
+    "model_path": "recognition/models/samaritan_hebrew/ppocrv6_sam_heb_medium_ft.safetensors",
+    "download_url": "https://huggingface.co/johnlockejrr/ppocrv6-sam-heb/resolve/main/ppocrv6_sam_heb_medium_ft.safetensors?download=true",
+    "min_kraken": "7.0",
+    "usable": true,
+    "notes": "Experimental comparison only: trained for Samaritan Hebrew, not Ashkenazi cursive."
+  },
+  "bohemica": {
+    "name": "Bohemica 19th-century Registers",
+    "model_path": "recognition/models/bohemica/rec_bohemica.mlmodel",
+    "download_url": "https://zenodo.org/records/11673242/files/rec_bohemica.mlmodel?download=1",
+    "base_dir": "L",
+    "usable": true,
+    "notes": "Control experiment only: German/Czech Latin-script model and cannot recognize Hebrew letters."
+  }
+}
